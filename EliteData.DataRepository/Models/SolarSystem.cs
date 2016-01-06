@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EliteData.ConsoleApplication.Models
+namespace EliteData.DataRepository.Models
 {
     public class SolarSystem
     {
