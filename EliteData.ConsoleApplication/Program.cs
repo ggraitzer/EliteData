@@ -72,7 +72,7 @@ namespace EliteData.ConsoleApplication
                         Console.WriteLine($"Name: {s.name} Ships for sale: {string.Concat(s.selling_ships)}");
                     }
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     Console.WriteLine($"Attempt {attempt + 1} failed, exception: {e.ToString()}");
                     if (e.InnerException != null)
@@ -81,9 +81,6 @@ namespace EliteData.ConsoleApplication
                     }
                 }
             }
-
-
-            Console.ReadKey();
         }
     }
 }
