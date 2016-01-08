@@ -20,7 +20,23 @@ namespace EliteData.DataRepository
             var content = await response.Content.ReadAsStringAsync();
             IEnumerable<SolarSystem> systemList = JsonConvert.DeserializeObject<IEnumerable<SolarSystem>>(content);
 
+            using (var db = new EliteDataContext())
+            {
+                db.Systems.AddRange(systemList);
+                db.SaveChanges();
+            }
+
             return systemList;
+        }
+
+        public async Task<IEnumerable<Station>> GetStationsAsync()
+        {
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync("https://eddb.io/archive/v4/stations.json");
+            var content = await response.Content.ReadAsStringAsync();
+            IEnumerable<Station> stationList = JsonConvert.DeserializeObject<IEnumerable<Station>>(content);
+
+            return stationList;
         }
     }
 }
