@@ -15,7 +15,7 @@ namespace EliteData.ConsoleApplication
     {
         static void Main(string[] args)
         {
-            Console.Write("For systems press 1, for stations press 2: ");
+            Console.Write("For systems press 1, for stations press 2, for commodities press 3: ");
             var key = Console.ReadKey();
             Console.WriteLine();
 
@@ -32,7 +32,12 @@ namespace EliteData.ConsoleApplication
 
                 runner.Stations(attempts);
             }
+            else if (key.KeyChar == '3')
+            {
 
+            }
+
+            Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
     }
@@ -79,6 +84,38 @@ namespace EliteData.ConsoleApplication
                     {
                         Console.WriteLine($"Inner Exception: {e.InnerException.ToString()}");
                     }
+                    attempt++;
+                }
+            }
+        }
+
+        public void Commodities(int maxTries)
+        {
+            Console.WriteLine("Getting Commodities...");
+            int attempt = 0;
+            bool successful = false;
+
+            while (attempt < maxTries && !successful)
+            {
+                try
+                {
+                    var result = Task.Run(() => repo.GetCommoditiesAsync()).Result;
+                    successful = true;
+                    Console.WriteLine("Content Received:");
+                    var commodities = result.Where(m => m.average_price != null && m.average_price != 0).OrderBy(m => m.system_id).Reverse().Take(20).ToList();
+                    foreach (var s in commodities)
+                    {
+                        Console.WriteLine($"Name: {s.name} Ships for sale: {string.Concat(s.selling_ships)}");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Attempt {attempt + 1} failed, exception: {e.ToString()}");
+                    if (e.InnerException != null)
+                    {
+                        Console.WriteLine($"Inner Exception: {e.InnerException.ToString()}");
+                    }
+                    attempt++;
                 }
             }
         }

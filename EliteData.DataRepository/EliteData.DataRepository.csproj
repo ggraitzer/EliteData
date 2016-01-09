@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="EliteDataContext.cs" />
     <Compile Include="EliteRepository.cs" />
+    <Compile Include="Models\Commodity.cs" />
+    <Compile Include="Models\CommodityCategory.cs" />
     <Compile Include="Models\SolarSystem.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

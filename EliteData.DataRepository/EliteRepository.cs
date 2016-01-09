@@ -38,5 +38,15 @@ namespace EliteData.DataRepository
 
             return stationList;
         }
+
+        public async Task<IEnumerable<Commodity>> GetCommoditiesAsync()
+        {
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync("https://eddb.io/archive/v4/commodities.json");
+            var content = await response.Content.ReadAsStringAsync();
+            IEnumerable<Commodity> commodityList = JsonConvert.DeserializeObject<IEnumerable<Commodity>>(content);
+
+            return commodityList;
+        }
     }
 }
