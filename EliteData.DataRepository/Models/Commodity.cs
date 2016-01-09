@@ -13,6 +13,6 @@ namespace EliteData.DataRepository.Models
         public int? category_id { get; set; }
         public int? average_price { get; set; }
         public int? is_rare { get; set; }
-        public IEnumerable<CommodityCategory> category { get; set; }
+        public CommodityCategory category { get; set; }
     }
 }

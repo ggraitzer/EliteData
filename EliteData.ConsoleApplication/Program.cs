@@ -34,7 +34,11 @@ namespace EliteData.ConsoleApplication
             }
             else if (key.KeyChar == '3')
             {
+                Console.Write("Max Attempts: ");
+                string input = Console.ReadLine();
+                int attempts = int.Parse(input);
 
+                runner.Commodities(attempts);
             }
 
             Console.WriteLine("Press any key to exit.");
@@ -102,10 +106,10 @@ namespace EliteData.ConsoleApplication
                     var result = Task.Run(() => repo.GetCommoditiesAsync()).Result;
                     successful = true;
                     Console.WriteLine("Content Received:");
-                    var commodities = result.Where(m => m.average_price != null && m.average_price != 0).OrderBy(m => m.system_id).Reverse().Take(20).ToList();
-                    foreach (var s in commodities)
+                    var commodities = result.Where(m => m.average_price != null && m.average_price != 0).OrderBy(m => m.average_price).Reverse().Take(20).ToList();
+                    foreach (var c in commodities)
                     {
-                        Console.WriteLine($"Name: {s.name} Ships for sale: {string.Concat(s.selling_ships)}");
+                        Console.WriteLine($"Name: {c.name} Average Price: {c.average_price}");
                     }
                 }
                 catch (Exception e)
